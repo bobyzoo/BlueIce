@@ -45,10 +45,7 @@ def leCardapio():
     for linha in reader:
         if(linha[3]=='P' or linha[3]=='A' or linha[3]=='L'):
             txt(f"{linha[0]}-{linha[1]}", 'branco', 35, 400, 110+tamLinha)
-            tamLinha+=25
-
-
-
+            tamLinha+=26
     arq.close()
 
 
@@ -196,16 +193,28 @@ try:
     pygame.init()
 except:
     print('Pygame não inicializado com sucesso!')
+#-------------------------------------------------------------------ICONE
+icone = pygame.image.load("_imagens/icon.bmp")
+pygame.display.set_icon(icone)#--------------------------------------DEFINE ICONE DO PROGRAMA
+
 
 
 fundo = pygame.display.set_mode((width,heigth))
 pygame.display.set_caption("Blue Ice")
 img =pygame.image.load("_imagens/tela01.png")
 
-
 while sair:
 
     for event in pygame.event.get():
+        pos = pygame.mouse.get_pos()
+        pos_x = pos[0]
+        pos_y = pos[1]
+
+        if (pos_x > 198 and pos_x < 420) and (pos_y > 295 and pos_y < 420):
+            #print(pygame.mouse.get_pressed())
+            pass
+
+
         if event.type == pygame.QUIT:
             sair=False
         if event.type == pygame.MOUSEBUTTONDOWN:

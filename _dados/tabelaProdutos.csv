@@ -1,10 +1,10 @@
 ﻿ID,produto,preço,tipo
 1,galinha,12.90,L
 2,mignon,19.80,L
-3,coração,18.50,L
-4,Açai-300ml,7.50,A
-5,Açai-500ml,12.00,A
-6,Açai-700ml,17.00,A
+3,coracao,18.50,L
+4,Acai-300ml,7.50,A
+5,Acai-500ml,12.00,A
+6,Acai-700ml,17.00,A
 7,batata-frita-P,10.00,P
 8,batata-frita-M,15.00,P
 9,batata-frita-G,20.00,P
@@ -19,3 +19,4 @@
 18,granola,0,AG
 19,calda de caramelo,0,AG
 20,calda de maracuja,0,AG
+,,,
