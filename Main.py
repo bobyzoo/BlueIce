@@ -39,7 +39,7 @@ def txt(msg, cor, tam, x, y):
 
 
 def leCardapio():
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     tamLinha=0
     for linha in reader:
@@ -53,7 +53,7 @@ def leCardapio():
 
 
 def leLanche():
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     for linha in reader:
         if(str(linha[3])=='L'):
@@ -62,7 +62,7 @@ def leLanche():
     arq.close()
 
 def leAcai():
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     for linha in reader:
         if (str(linha[3]) == 'A'):
@@ -71,7 +71,7 @@ def leAcai():
     arq.close()
 
 def lePorcao():
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     for linha in reader:
         if (str(linha[3]) == 'P'):
@@ -81,7 +81,7 @@ def lePorcao():
 
 def encontraValor(nProduto):
     global conta,mesa
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     next(reader)
     for linha in reader:
@@ -105,9 +105,9 @@ def encontraValor(nProduto):
 
 def addConta(valor,produto,mesa):
 
-    arq = open('conta.csv', 'a')
+    arq = open('_dados/conta.csv', 'a')
     writer = csv.writer(arq)
-    arq1 = open('pedido.csv', 'a')
+    arq1 = open('_dados/pedido.csv', 'a')
     writer1 = csv.writer(arq1)
     writer.writerow([f'{produto},{valor}'])
     writer1.writerow([f'========{produto}---[{mesa}]========='])
@@ -115,7 +115,7 @@ def addConta(valor,produto,mesa):
     arq1.close()
 
 def verConta():
-    arq = open('conta.csv')
+    arq = open('_dados/conta.csv')
     reader = csv.reader(arq)
     for linha in reader:
         print(f'{linha}')
@@ -125,7 +125,7 @@ def verConta():
 
 def fechaConta():
 
-    arq = open('conta.csv', 'a')
+    arq = open('_dados/conta.csv', 'a')
     global conta
     writer = csv.writer(arq)
     writer.writerow([f'TOTAL = R$ {conta}'])
@@ -152,14 +152,14 @@ def pagamentoCard():
         sleep(1)
 
 def addAcai():
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     print("========ADICIONAIS DE GRAÇA========")
     for linha in reader:
         if (str(linha[3]) == 'AG'):
             print(f'{linha[0]}===={linha[1]}===={linha[2]}')
     arq.close()
-    arq = open('tabelaProdutos.csv', 'r')
+    arq = open('_dados/tabelaProdutos.csv', 'r')
     reader = csv.reader(arq)
     print("========ADICIONAIS PAGOS===========")
     for linha in reader:
@@ -172,7 +172,7 @@ def fazAcai():
     global conta,mesa
     while 1:
         x= int(input('digite add: '))
-        arq = open('tabelaProdutos.csv', 'r')
+        arq = open('_dados/tabelaProdutos.csv', 'r')
         reader = csv.reader(arq)
         next(reader)
         for linha in reader:
@@ -189,6 +189,7 @@ def fazAcai():
                 break
         if x==0:
             break
+    arq.close()
 
 #-----------------------------------------------------------------------MAIN
 try:
@@ -199,7 +200,7 @@ except:
 
 fundo = pygame.display.set_mode((width,heigth))
 pygame.display.set_caption("Blue Ice")
-img =pygame.image.load("tela01.png")
+img =pygame.image.load("_imagens/tela01.png")
 
 
 while sair:
@@ -214,10 +215,10 @@ while sair:
 
             if(telaAtual==1):
                 if (pos_x>198 and pos_x<420) and (pos_y>295 and pos_y<420):
-                    img = pygame.image.load("tela03.png")
+                    img = pygame.image.load("_imagens/tela03.png")
                     telaAtual=2
                 if (pos_x>715 and pos_x<935) and (pos_y>290 and pos_y<420):
-                    img = pygame.image.load("tela02.png")
+                    img = pygame.image.load("_imagens/tela02.png")
                     telaAtual=3
 
     fundo.fill(color('branco'))
