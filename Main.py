@@ -30,6 +30,8 @@ def color (x):
         return (55,55,55)
     elif str(x) == 'cinza':
         return (30,30,30)
+    elif str(x) == 'roxo':
+        return (100,0,150)
     else:
         return (0,0,0)
 def txt(msg, cor, tam, x, y):
@@ -44,7 +46,8 @@ def leCardapio():
     tamLinha=0
     for linha in reader:
         if(linha[3]=='P' or linha[3]=='A' or linha[3]=='L'):
-            txt(f"{linha[0]}-{linha[1]}", 'branco', 35, 400, 110+tamLinha)
+            #txt(f"{linha[0]}-{linha[1]}", 'branco', 35, 400, 110+tamLinha)
+            print(f"{linha[0]}-{linha[1]}")
             tamLinha+=26
     arq.close()
 
@@ -175,8 +178,8 @@ def fazAcai():
         for linha in reader:
             if (int(linha[0]) == x):
                 conta += float(linha[2])
-                arq1 = open('conta.csv', 'a')
-                arq2 = open('pedido.csv', 'a')
+                arq1 = open('_dados/conta.csv', 'a')
+                arq2 = open('_dados/pedido.csv', 'a')
                 writer2 = csv.writer(arq2)
                 writer2.writerow([f'{linha[1]},{mesa}'])
                 writer = csv.writer(arq1)
@@ -203,18 +206,13 @@ fundo = pygame.display.set_mode((width,heigth))
 pygame.display.set_caption("Blue Ice")
 img =pygame.image.load("_imagens/tela01.png")
 
+print(pygame.display.get_caption ())
 while sair:
 
     for event in pygame.event.get():
         pos = pygame.mouse.get_pos()
         pos_x = pos[0]
         pos_y = pos[1]
-
-        if (pos_x > 198 and pos_x < 420) and (pos_y > 295 and pos_y < 420):
-            #print(pygame.mouse.get_pressed())
-            pass
-
-
         if event.type == pygame.QUIT:
             sair=False
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -232,6 +230,13 @@ while sair:
 
     fundo.fill(color('branco'))
     fundo.blit(img,(0,0))
+    if telaAtual==1:
+        if (pos_x > 198 and pos_x < 420) and (pos_y > 295 and pos_y < 420):
+            pygame.draw.rect(fundo,color('roxo'),(195,295,226,125),22)
+
+        if (pos_x>715 and pos_x<935) and (pos_y>290 and pos_y<420):
+            pygame.draw.rect(fundo,color('roxo'),(715,295,220,125),22)
+            pass
     if telaAtual==2:
         leCardapio()
 
@@ -272,11 +277,12 @@ while 1:
         on=True
         conta =0.0
 
-        arq = open('conta.csv', 'w')
+        arq = open('_dados/conta.csv', 'w')
         fieldnames = ['Produto','total']
         writer = csv.DictWriter(arq, fieldnames=fieldnames)
         writer.writeheader()
         arq.close()
+        print('novo')
 
         while (on):
             print(f"""
