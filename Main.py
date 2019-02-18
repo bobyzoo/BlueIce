@@ -8,6 +8,10 @@ heigth = 720
 sair= True
 branco = (251,212,153)
 telaAtual=1
+posCopos=[250,120]
+posAba=[1105,0]
+move=False
+
 #------------------------------------------------------------------------FUNÇÕES
 def color (x):
     if str(x) == 'branco':
@@ -201,13 +205,17 @@ except:
 #-------------------------------------------------------------------ICONE
 icone = pygame.image.load("_imagens/icon.bmp")
 pygame.display.set_icon(icone)#--------------------------------------DEFINE ICONE DO PROGRAMA
-
-
-
 fundo = pygame.display.set_mode((width,heigth))
 pygame.display.set_caption("Blue Ice")
+
+#*-*-*--*-*-*-*-*-*-*-*-*-*--*-*-*-*-*-*--*--*-*-*-**-------------------------------------------------------IMAGENS
 img =pygame.image.load("_imagens/tela01.png")
-clk = pygame.time.Clock()
+copos =pygame.image.load("_imagens/copos.png")
+abaLateral =pygame.image.load("_imagens/abaLateral.png")
+
+
+
+clk = pygame.time.Clock()#****************************************************************CLOCK
 
 while sair:
     fundo.fill(color('branco'))
@@ -217,8 +225,7 @@ while sair:
         pos = pygame.mouse.get_pos()
         pos_x = pos[0]
         pos_y = pos[1]
-        print(f'{pos_x} {pos_y}')
-
+        #print(f'{pos_x} {pos_y}')
 
         if event.type == pygame.QUIT:
             sair = False
@@ -248,17 +255,21 @@ while sair:
             if(telaAtual==3):
                 if (pos_x > 620 and pos_x < 770) and (pos_y > 415 and pos_y < 565):
                     img = pygame.image.load("_imagens/tela01.png")
-                    telaAtual = 4
+                    telaAtual = 6
                 if (pos_x > 620 and pos_x < 770) and (pos_y > 220 and pos_y < 370):
                     img = pygame.image.load("_imagens/tela01.png")
                     telaAtual = 5
                 if (pos_x > 281 and pos_x < 411) and (pos_y > 220 and pos_y < 370):
-                    img = pygame.image.load("_imagens/tela01.png")
-                    telaAtual = 6
+                    img = pygame.image.load("_imagens/tela04.png")
+                    telaAtual = 4
                 if (pos_x > 281 and pos_x < 411) and (pos_y > 415 and pos_y < 565):
                     img = pygame.image.load("_imagens/tela01.png")
                     telaAtual = 7
-                # -----------------------------------------------------------------------FIM EVENTOS
+            if(telaAtual==4):
+                if (pos_x > 500 and pos_x < 770) and (pos_y > 220 and pos_y < 565):
+                    move=True
+
+                                #------------*-*-*--*-*-*-*-*-*-**-*-*-*-*-*-*-**-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-------FIM EVENTOS
 
     fundo.blit(img, (0, 0))#-----------------------------------------------------------IMAGEM DE FUNDO
 
@@ -286,15 +297,34 @@ while sair:
             pygame.draw.circle(fundo, color('roxo'), (356, 294), 75, 10)
         if (pos_x > 281 and pos_x < 411) and (pos_y > 415 and pos_y < 565):
             pygame.draw.circle(fundo, color('roxo'), (356, 486), 75, 10)
+    if telaAtual==4:#-----------------------------------------------------------------PAGINA AÇAI
+        fundo.blit(copos, posCopos)
+        fundo.blit(abaLateral, posAba)
+        if(pos_x > 281 and pos_x < 411) and (pos_y > 415 and pos_y < 565):
+            pass
+        if move:
+            if(posAba[0]>750):
+                posAba[0] -= 75
+
+            if(posCopos[0]>130):
+                posCopos[0]-=20
+
+
+
+
+
+
+        if(pos_x > 900 and pos_x < 1050) and (pos_y > 560 and pos_y < 703):
+            pygame.draw.circle(fundo,color('roxo'),(982,632),75,10)
 
 
 
 
     pygame.display.update()
-    clk.tick(60)
+    clk.tick(40)
 
 pygame.quit()
-
+'''
 while 1:
     print("""
     =====================================
@@ -393,5 +423,5 @@ while 1:
                     verConta()
                     print(f"TOTAL==R$ {conta}")
                     pagamentoCard()
-
+'''
 
