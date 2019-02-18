@@ -32,10 +32,12 @@ def color (x):
         return (30,30,30)
     elif str(x) == 'roxo':
         return (100,0,150)
+    elif str(x) == 'roxoescuro':
+        return (200,75,94)
     else:
         return (0,0,0)
 def txt(msg, cor, tam, x, y):
-    font = pygame.font.SysFont(None, tam, True)
+    font = pygame.font.SysFont('comicsansms', tam, True)
     txt1 = font.render(msg, True, color(cor))
     fundo.blit(txt1, [x, y])
 
@@ -46,9 +48,9 @@ def leCardapio():
     tamLinha=0
     for linha in reader:
         if(linha[3]=='P' or linha[3]=='A' or linha[3]=='L'):
-            #txt(f"{linha[0]}-{linha[1]}", 'branco', 35, 400, 110+tamLinha)
-            print(f"{linha[0]}-{linha[1]}")
-            tamLinha+=26
+            txt(f"{linha[0]}-{linha[1]}", 'branco', 20, 400, 110+tamLinha)
+            #print(f"{linha[0]}-{linha[1]}")
+            tamLinha += 26
     arq.close()
 
 
@@ -205,44 +207,93 @@ pygame.display.set_icon(icone)#--------------------------------------DEFINE ICON
 fundo = pygame.display.set_mode((width,heigth))
 pygame.display.set_caption("Blue Ice")
 img =pygame.image.load("_imagens/tela01.png")
+clk = pygame.time.Clock()
 
-print(pygame.display.get_caption ())
 while sair:
+    fundo.fill(color('branco'))
 
-    for event in pygame.event.get():
+
+    for event in pygame.event.get():#--------------------------------------------INICIA EVENTOS
         pos = pygame.mouse.get_pos()
         pos_x = pos[0]
         pos_y = pos[1]
-        if event.type == pygame.QUIT:
-            sair=False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            pos_x = pos[0]
-            pos_y = pos[1]
+        print(f'{pos_x} {pos_y}')
 
+
+        if event.type == pygame.QUIT:
+            sair = False
+        if event.type == pygame.MOUSEBUTTONDOWN:#-------*-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*---*-*-*-*-----------------EVENTO DE CLICK-LEFT BUTTON
+            pos = pygame.mouse.get_pos()
             if(telaAtual==1):
+                #---------------------------------------------------------------ENTRA NO CARDAPIO
                 if (pos_x>198 and pos_x<420) and (pos_y>295 and pos_y<420):
                     img = pygame.image.load("_imagens/tela03.png")
                     telaAtual=2
+                # ---------------------------------------------------------------ABRE A CONTA
                 if (pos_x>715 and pos_x<935) and (pos_y>290 and pos_y<420):
                     img = pygame.image.load("_imagens/tela02.png")
                     telaAtual=3
+                    conta = 0.0
+                    arq = open('_dados/conta.csv', 'w')
+                    fieldnames = ['Produto', 'total']
+                    writer = csv.DictWriter(arq, fieldnames=fieldnames)
+                    writer.writeheader()
+                    arq.close()
 
-    fundo.fill(color('branco'))
-    fundo.blit(img,(0,0))
+            if(telaAtual==2):
+                if(pos_x > 900 and pos_x < 1050) and (pos_y > 560 and pos_y < 703):
+                    img=pygame.image.load("_imagens/tela01.png")
+                    telaAtual = 1
+
+            if(telaAtual==3):
+                if (pos_x > 620 and pos_x < 770) and (pos_y > 415 and pos_y < 565):
+                    img = pygame.image.load("_imagens/tela01.png")
+                    telaAtual = 4
+                if (pos_x > 620 and pos_x < 770) and (pos_y > 220 and pos_y < 370):
+                    img = pygame.image.load("_imagens/tela01.png")
+                    telaAtual = 5
+                if (pos_x > 281 and pos_x < 411) and (pos_y > 220 and pos_y < 370):
+                    img = pygame.image.load("_imagens/tela01.png")
+                    telaAtual = 6
+                if (pos_x > 281 and pos_x < 411) and (pos_y > 415 and pos_y < 565):
+                    img = pygame.image.load("_imagens/tela01.png")
+                    telaAtual = 7
+                # -----------------------------------------------------------------------FIM EVENTOS
+
+    fundo.blit(img, (0, 0))#-----------------------------------------------------------IMAGEM DE FUNDO
+
+
+
+
     if telaAtual==1:
         if (pos_x > 198 and pos_x < 420) and (pos_y > 295 and pos_y < 420):
             pygame.draw.rect(fundo,color('roxo'),(195,295,226,125),22)
 
         if (pos_x>715 and pos_x<935) and (pos_y>290 and pos_y<420):
             pygame.draw.rect(fundo,color('roxo'),(715,295,220,125),22)
-            pass
+
     if telaAtual==2:
+        if(pos_x > 900 and pos_x < 1050) and (pos_y > 560 and pos_y < 703):
+            pygame.draw.circle(fundo,color('roxo'),(982,632),75,10)
         leCardapio()
 
-    pygame.display.update()
-pygame.quit()
+    if telaAtual==3:#-----------------------------------------------------------------PAGINA MENU
+        if(pos_x > 620 and pos_x < 770) and (pos_y > 415 and pos_y < 565):
+            pygame.draw.circle(fundo,color('roxo'),(696,486),75,10)
+        if (pos_x > 620 and pos_x < 770) and (pos_y > 220 and pos_y < 370):
+            pygame.draw.circle(fundo, color('roxo'), (696, 294), 75, 10)
+        if (pos_x > 281 and pos_x < 411) and (pos_y > 220 and pos_y < 370):
+            pygame.draw.circle(fundo, color('roxo'), (356, 294), 75, 10)
+        if (pos_x > 281 and pos_x < 411) and (pos_y > 415 and pos_y < 565):
+            pygame.draw.circle(fundo, color('roxo'), (356, 486), 75, 10)
 
+
+
+
+    pygame.display.update()
+    clk.tick(60)
+
+pygame.quit()
 
 while 1:
     print("""
